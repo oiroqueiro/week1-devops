@@ -23,21 +23,20 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          python -m pip install -r requirements.txt pytest-cov
+          python -m pip install -r requirements.txt
   
       - name: Run tests and generate coverage report
         run: |          
-          python -m pytest --cov-report xml:coverage.xml --cov=src tests/
+          python -m pytest --cov-report=term-missing:skip-covered --junitxml=pytest.xml --cov=tests tests/  | tee pytest-coverage.txt
 
-      - name: Comment coverage report
-        uses: MishaKav/pytest-coverage-comment@v1.1.48
+      - name: Pytest coverage comment
+        uses: MishaKav/pytest-coverage-comment@main
         with:
-          pytest-coverage-path: coverage.xml
+          pytest-coverage-path: pytest-coverage.txt
+          junitxml-path: pytest.xml 
         
-      - name: Upload coverage report to GitHub
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage-report
-          path: ./xmlcov
+      - name: Comment coverage report
+        run: |
+          echo ${{ steps.code_coverage_summary.outputs.summary }}
         
          

@@ -33,7 +33,7 @@ jobs:
       - name: Generate coverage report summary
         uses: irongut/CodeCoverageSummary@v1.3.0
         with:
-          coverage-file: ./coverage/lcov.info
+          filename: ./coverage/lcov.info
         
       - name: Comment coverage report
         run: |

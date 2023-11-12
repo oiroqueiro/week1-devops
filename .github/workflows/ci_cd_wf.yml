@@ -30,10 +30,13 @@ jobs:
         run: |          
           python -m pytest --cov-report lcov --cov=src tests/
 
-      - name: Comment coverage report
-        uses: romeovs/lcov-reporter-action@v0.2.11
+      - name: Generate coverage report summary
+        uses: irongut/CodeCoverageSummary@v1.3.0
         with:
           lcov-file: ./coverage/lcov.info
         
+      - name: Comment coverage report
+        run: |
+          echo ${{ steps.code_coverage_summary.outputs.summary }}
         
          

@@ -26,12 +26,11 @@ jobs:
           python -m pip install -r requirements.txt pytest-cov
   
       - name: Run tests and generate coverage report
-        run: |
-          pytest --cov=week1_devops tests/
+        run: |          
+          python -m pytest --cov-report xml:coverage.xml --cov=src tests/
 
-      - name: Upload coverage report to Github
-        uses: actions/upload-artifact@v3
+      - name: Comment coverage report
+        uses: MishaKav/pytest-coverage-comment@v1.1.48
         with:
-          name: coverage-report
-          path: ./htmlcov
+          pytest-coverage-path: coverage.xml
          

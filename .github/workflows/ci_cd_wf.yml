@@ -1,4 +1,4 @@
-name: test
+name: test with report coverage
 
 on:
   push:
@@ -23,7 +23,21 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          python -m pip install -r requirements.txt
-      - name: Run tests
-        run: |
-          python -m pytest -v tests
+          python -m pip install -r requirements.txt pytest-cov
+  
+      - name: Run tests and generate coverage report
+        run: |          
+          python -m pytest --cov-report xml:coverage.xml --cov=src tests/
+
+      - name: Comment coverage report
+        uses: MishaKav/pytest-coverage-comment@v1.1.48
+        with:
+          pytest-coverage-path: coverage.xml
+        
+      - name: Upload coverage report to GitHub
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: ./xmlcov
+        
+         

@@ -33,4 +33,11 @@ jobs:
         uses: MishaKav/pytest-coverage-comment@v1.1.48
         with:
           pytest-coverage-path: coverage.xml
+        
+      - name: Upload coverage report to GitHub
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: ./xmlcov
+        
          

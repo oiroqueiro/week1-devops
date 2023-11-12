@@ -35,8 +35,5 @@ jobs:
           pytest-coverage-path: pytest-coverage.txt
           junitxml-path: pytest.xml 
         
-      - name: Comment coverage report
-        run: |
-          echo ${{ steps.code_coverage_summary.outputs.summary }}
         
          

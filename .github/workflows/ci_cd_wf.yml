@@ -27,13 +27,13 @@ jobs:
   
       - name: Run tests and generate coverage report
         run: |          
-          python -m pytest --cov-report term --junitxml=pytest.xml --cov=tests tests/
+          python -m pytest --cov-report=term-missing:skip-covered --junitxml=pytest.xml --cov=tests tests/  | tee pytest-coverage.txt
 
       - name: Pytest coverage comment
         uses: MishaKav/pytest-coverage-comment@main
         with:
-          pytest-coverage-path: ./pytest-coverage.txt
-          junitxml-path: ./pytest.xml 
+          pytest-coverage-path: pytest-coverage.txt
+          junitxml-path: pytest.xml 
         
       - name: Comment coverage report
         run: |
